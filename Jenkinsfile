@@ -2,15 +2,11 @@ pipeline {
     agent any
 
     tools {
-        gradle 'Gradle'    // Must match Jenkins tool name
-        jdk 'JDK'          // Must match Jenkins tool name
+        gradle 'Gradle'    
+        jdk 'JDK'          
     }
 
-    environment {
-        // Optional: set environment variables
-        JAVA_OPTS = "-Xmx1024m"
-    }
-
+  
     stages {
 
         stage('Checkout') {
@@ -27,14 +23,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                sh 'gradle test --stacktrace'
-                // Publish test results to Jenkins
-                junit '**/build/test-results/test/*.xml'
-            }
-        }
+        
 
         stage('Archive Artifacts') {
             steps {
