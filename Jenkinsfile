@@ -1,85 +1,31 @@
 pipeline {
-    agent any
-
-    tools {
-        gradle 'Gradle'    
-        jdk 'JDK'          
-    }
-
-  
-    stages {
-
-        stage('Checkout') {
-            steps {
-                echo 'Checking out source code...'
-                git branch: 'master', url: 'https://github.com/Harshini-Medha/gradle_1BI24CS405_Final'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                echo 'Building project...'
-                sh 'gradle build --stacktrace --info'
-            }
-        }
-
-        
-
-        stage('Archive Artifacts') {
-            steps {
-                echo 'Archiving build artifacts...'
-                archiveArtifacts artifacts: 'build/libs/app.jar', fingerprint: true
-            }
-        }
-
-        stage('Run Application (Optional)') {
-            steps {
-                echo 'Running application...'
-               
-                sh 'gradle run'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build, tests, and artifacts completed successfully!'
-        }
-        failure {
-            echo 'Build failed. Check the logs!'
-        }
-        always {
-            echo 'Pipeline finished.'
-        }
-    }
-}pipeline {
-agent any
+agent any // Use any available agent
 tools {
-gradle 'Gradle'
+gradle 'Gradle' // Ensure this matches the name configured in Jenkins
 jdk 'JDK'
 }
 stages {
 stage('Checkout') {
 steps {
-git branch: 'master', url: 'https://github.com/Harshini-Medha/gradle_1BI24CS405_Final'
+git branch: 'master', url: 'https://github.com/Harshini-Medha/gradle_1BI24CS405_Final.git'
 }
 }
 stage('Build') {
 steps {
-sh 'gradle build'
+sh 'gradle build' // Run Maven build
 }
 }
 stage('Test') {
 steps {
-sh 'gradle test'
+sh 'gradle test' // Run unit tests
 }
 }
 stage('Run Application') {
 steps {
-
+// Start the JAR application
 sh 'gradle run'
 }
-}
+    }
 }
 post {
 success {
