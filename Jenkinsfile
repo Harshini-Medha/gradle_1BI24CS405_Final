@@ -23,7 +23,7 @@ sh 'gradle test'
 stage('Run Application') {
 steps {
 
-sh 'java -jar app/build/libs/app.jar'
+sh 'gradle run'
 }
 }
 }
